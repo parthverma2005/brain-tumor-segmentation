@@ -1,0 +1,30 @@
+# Python
+venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Machine Learning large model files
+*.pth
+*.pt
+*.onnx
+*.h5
+*.weights
+*.ckpt
+
+# C/C++ compiled libs
+*.dll
+*.lib
+*.so
+
+# Node / React
+brain-tumor-frontend/node_modules/
+node_modules/
+
+.env
+.env.local
+
+.vscode/
+.idea/
+.DS_Store
