@@ -1,0 +1,23 @@
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: "Poppins", sans-serif;
+  color: #0a2540;
+  background: linear-gradient(180deg, #f5f9ff 0%, #e6efff 100%);
+  overflow-x: hidden;
+  position: relative;
+  min-height: 100vh;
+}
+
+
+.app-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+section {
+  width: 100%;
+}
