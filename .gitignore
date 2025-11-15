@@ -28,3 +28,9 @@ node_modules/
 .vscode/
 .idea/
 .DS_Store
+
+venv/
+brain_tumor_seg_dataset/
+*.arrow
+*.dll
+*.lib
