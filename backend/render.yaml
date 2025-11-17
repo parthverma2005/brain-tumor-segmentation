@@ -2,10 +2,13 @@ services:
   - type: web
     name: brain-tumor-backend
     env: python
-    region: singapore
     plan: free
-    buildCommand: ""
-    startCommand: "gunicorn app:app --preload"
+
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "gunicorn backend.app:app --timeout 200 --workers 1 --threads 1"
+
     envVars:
       - key: PYTHON_VERSION
         value: 3.10
+
+    autoDeploy: true

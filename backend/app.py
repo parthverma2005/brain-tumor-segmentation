@@ -12,17 +12,15 @@ from backend.model.UNet import UNet
 app = Flask(__name__)
 CORS(app)
 
+device = torch.device("cpu")
 
+MODEL_PATH = os.path.join("backend", "model", "best_model_finetuned.pth")
 
-device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 model = UNet(in_ch=1, out_ch=1).to(device)
-
-MODEL_PATH = os.path.join("backend","model", "best_model_finetuned.pth")
-
-model.load_state_dict(torch.load(MODEL_PATH, map_location=device))
+model.load_state_dict(torch.load(MODEL_PATH, map_location="cpu"))
 model.eval()
 
-
+torch.set_grad_enabled(False)
 
 
 def preprocess_image(image: Image.Image):
@@ -32,11 +30,9 @@ def preprocess_image(image: Image.Image):
 
 
 def postprocess_mask(mask_tensor):
-    mask = mask_tensor.squeeze().detach().cpu().numpy()
+    mask = mask_tensor.squeeze().detach().numpy()
     mask = (mask > 0.5).astype(np.uint8) * 255
     return mask
-
-
 
 
 @app.route("/predict", methods=["POST"])
@@ -45,17 +41,17 @@ def predict():
         return jsonify({"error": "No file uploaded"}), 400
 
     file = request.files["file"]
-
     image = Image.open(file.stream).convert("L")
+
     img_tensor = preprocess_image(image).to(device)
 
     with torch.no_grad():
         output = torch.sigmoid(model(img_tensor))
 
-        raw_mask = output.squeeze().detach().cpu().numpy()
+        raw_mask = output.squeeze().numpy()
         tumor_pixels = raw_mask[raw_mask > 0.5]
-
         confidence = float(tumor_pixels.mean()) if tumor_pixels.size > 0 else 0.0
+
         mask = postprocess_mask(output)
 
     img_np = np.array(image.resize((256, 256)))
@@ -78,9 +74,3 @@ def predict():
         "confidence": round(confidence, 4),
         "overlay": overlay_base64
     })
-
-
-
-
-# if __name__ == "__main__":
-#     app.run(host="0.0.0.0", port=5000)
