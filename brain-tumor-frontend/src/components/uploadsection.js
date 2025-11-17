@@ -14,9 +14,13 @@ function UploadSection({ setResult }) {
 
     try {
       setLoading(true);
-      const res = await axios.post("http://192.168.29.27:5000/predict", formData, {
+
+      const API_URL = process.env.REACT_APP_BACKEND_URL;
+
+      const res = await axios.post(`${API_URL}/predict`, formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
+
       setResult(res.data);
     } catch (err) {
       console.error("Upload Error:", err);
@@ -31,7 +35,10 @@ function UploadSection({ setResult }) {
       <div className="upload-container">
         <h2>Upload MRI Scan</h2>
         <div className="upload-box">
-          <input type="file" onChange={(e) => setFile(e.target.files[0])} />
+          <input 
+            type="file" 
+            onChange={(e) => setFile(e.target.files[0])} 
+          />
           <button onClick={handleUpload} disabled={loading}>
             {loading ? "Analyzing..." : "Analyze with AI"}
           </button>
@@ -40,7 +47,11 @@ function UploadSection({ setResult }) {
         {file && (
           <div className="preview">
             <h4>Preview:</h4>
-            <img src={URL.createObjectURL(file)} alt="Uploaded MRI" className="preview-img" />
+            <img
+              src={URL.createObjectURL(file)}
+              alt="Uploaded MRI"
+              className="preview-img"
+            />
           </div>
         )}
       </div>
