@@ -10,3 +10,9 @@ easyocr
 plotly
 matplotlib
 seaborn
+torch
+flask
+flask-cors
+torchvision
+torchaudio
+gunicorn
