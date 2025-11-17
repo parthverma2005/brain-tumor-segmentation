@@ -7,7 +7,7 @@ import cv2
 import base64
 import os
 
-from model.UNet import UNet
+from backend.model.UNet import UNet
 
 app = Flask(__name__)
 CORS(app)
