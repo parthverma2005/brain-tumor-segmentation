@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: brain-tumor-backend
+    env: python
+    region: singapore
+    plan: free
+    buildCommand: ""
+    startCommand: "gunicorn app:app --preload"
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.10
