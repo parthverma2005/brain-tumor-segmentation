@@ -17,7 +17,7 @@ CORS(app)
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 model = UNet(in_ch=1, out_ch=1).to(device)
 
-MODEL_PATH = os.path.join("model", "best_model_finetuned.pth")
+MODEL_PATH = os.path.join("backend","model", "best_model_finetuned.pth")
 
 model.load_state_dict(torch.load(MODEL_PATH, map_location=device))
 model.eval()
