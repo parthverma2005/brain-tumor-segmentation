@@ -1,5 +1,6 @@
 Overview
-This project focuses on the automatic segmentation of brain tumors from MRI images using the U-Net deep learning architecture. The model accurately identifies and highlights tumor regions, assisting in early diagnosis and medical analysis.
+This project focuses on the automatic segmentation of brain tumors from MRI images using the U-Net deep learning architecture. 
+The model accurately identifies and highlights tumor regions, assisting in earlydiagnosis and medical analysis.
 U-Net is widely used in medical image segmentation due to its ability to capture both context and fine-grained details, making it ideal for pixel-level predictions.
 
 Features-
